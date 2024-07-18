@@ -10,12 +10,17 @@ const server = http.createServer(app)
 const io = socketIo(server, {
   cors: {
     origin: "https://pong-mobile.vercel.app",
-    methods: ["GET", "POST"]
+    methods: ["GET", "POST"],
+    allowedHeaders: ["my-custom-header"],
+    credentials: true
   }
 })
 
 app.use(cors({
-  origin: "https://pong-mobile.vercel.app"
+  origin: "https://pong-mobile.vercel.app",
+  methods: ["GET", "POST"],
+  allowedHeaders: ["my-custom-header"],
+  credentials: true
 }));
 
 mongoose.connect(process.env.MONGODB_URI, {
