@@ -14,7 +14,7 @@ const io = socketIo(server, {
   }
 })
 
-// app.use(cors())
+app.use(cors())
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
