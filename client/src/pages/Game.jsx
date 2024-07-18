@@ -88,7 +88,7 @@ function Game() {
 
       const { width, height } = canvas
       const paddleWidth = width * 0.2
-      const paddleHeight = height * 0.04
+      const paddleHeight = height * 0.02
       const ballRadius = width * 0.015
 
       context.fillStyle = '#000000'
