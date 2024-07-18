@@ -12,7 +12,7 @@ function Game() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const newSocket = io('https://pong-mobile-mbrn5zplb-jaideep-s-projects.vercel.app')
+    const newSocket = io('https://pong-mobile-api.vercel.app')
     setSocket(newSocket)
 
     newSocket.on('connect', () => {
