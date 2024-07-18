@@ -9,7 +9,7 @@ const app = express()
 const server = http.createServer(app)
 const io = socketIo(server, {
   cors: {
-    origin: "https://pong-mobile-gibj96t5b-jaideep-s-projects.vercel.app/",
+    origin: "https://pong-mobile.vercel.app",
     methods: ["GET", "POST"]
   }
 })
