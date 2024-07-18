@@ -12,7 +12,7 @@ function Game() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const newSocket = io('http://localhost:3001')
+    const newSocket = io('https://pongmobile.onrender.com')
     setSocket(newSocket)
 
     newSocket.on('connect', () => {
