@@ -11,7 +11,7 @@ const io = socketIo(server, {
   cors: {
     origin: "https://pong-mobile.vercel.app",
     methods: ["GET", "POST"],
-    allowedHeaders: ["my-custom-header"],
+    allowedHeaders: ["Access-Control-Allow-Origin"],
     credentials: true
   }
 })
@@ -19,7 +19,7 @@ const io = socketIo(server, {
 app.use(cors({
   origin: "https://pong-mobile.vercel.app",
   methods: ["GET", "POST"],
-  allowedHeaders: ["my-custom-header"],
+  allowedHeaders: ["Access-Control-Allow-Origin"],
   credentials: true
 }));
 
