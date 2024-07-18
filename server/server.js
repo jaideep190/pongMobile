@@ -14,17 +14,7 @@ const io = socketIo(server, {
   }
 })
 
-const allowedOrigins = ["https://pongmobile-y8qo.onrender.com", "http://localhost:5173"];
-
-app.use(cors({
-  origin: (origin, callback) => {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
-}));
+app.use(cors())
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
