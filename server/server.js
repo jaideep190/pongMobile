@@ -14,7 +14,9 @@ const io = socketIo(server, {
   }
 })
 
-app.use(cors())
+app.use(cors({
+  origin: "https://pong-mobile.vercel.app"
+}));
 
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
