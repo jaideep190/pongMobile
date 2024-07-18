@@ -137,10 +137,10 @@ function checkCollision(game) {
   }
 
   if (
-    (game.ballY >= 0.95 &&
+    (game.ballY >= 0.93 &&
       game.ballX >= game.paddle1X &&
       game.ballX <= game.paddle1X + 0.2) ||
-    (game.ballY <= 0.05 &&
+    (game.ballY <= 0.08 &&
       game.ballX >= game.paddle2X &&
       game.ballX <= game.paddle2X + 0.2)
   ) {
