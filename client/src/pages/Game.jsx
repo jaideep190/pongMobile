@@ -63,8 +63,16 @@ function Game() {
     const context = canvas.getContext('2d')
 
     const drawPaddle = (x, y, width, height) => {
-      context.fillStyle = '#FFFFFF'
-      context.fillRect(x, y, width, height)
+      const radius = height / 2; // Automatically adjusts to new height
+      context.beginPath();
+      context.moveTo(x + radius, y);
+      context.arcTo(x + width, y, x + width, y + height, radius);
+      context.arcTo(x + width, y + height, x, y + height, radius);
+      context.arcTo(x, y + height, x, y, radius);
+      context.arcTo(x, y, x + width, y, radius);
+      context.closePath();
+      context.fillStyle = '#FFFFFF';
+      context.fill();
     }
 
     const drawBall = (x, y, radius) => {
@@ -80,7 +88,7 @@ function Game() {
 
       const { width, height } = canvas
       const paddleWidth = width * 0.2
-      const paddleHeight = height * 0.02
+      const paddleHeight = height * 0.04
       const ballRadius = width * 0.015
 
       context.fillStyle = '#000000'
@@ -109,7 +117,7 @@ function Game() {
     const resizeCanvas = () => {
       const containerWidth = window.innerWidth * 0.9
       const containerHeight = window.innerHeight * 0.8
-      const aspectRatio = 9 / 16
+      const aspectRatio = 16 / 9
       
       let canvasWidth, canvasHeight
 
@@ -132,13 +140,24 @@ function Game() {
     return () => window.removeEventListener('resize', resizeCanvas)
   }, [gameState, gameStatus])
 
-  const handleTouchMove = (e) => {
+  const handleMove = (e) => {
     if (gameStatus === 'playing') {
-      const touch = e.touches[0]
       const canvas = canvasRef.current
       const rect = canvas.getBoundingClientRect()
-      const x = (touch.clientX - rect.left) / canvas.width
-      socket.emit('paddleMove', { x, playerNumber })
+      let x
+
+      if (e.type === 'touchmove') {
+        // Mobile touch event
+        const touch = e.touches[0]
+        x = (touch.clientX - rect.left) / canvas.width
+      } else if (e.type === 'mousemove') {
+        // Desktop mouse event
+        x = (e.clientX - rect.left) / canvas.width
+      }
+
+      if (x !== undefined) {
+        socket.emit('paddleMove', { x, playerNumber })
+      }
     }
   }
 
@@ -146,7 +165,8 @@ function Game() {
     <div className="game-container">
       <canvas
         ref={canvasRef}
-        onTouchMove={handleTouchMove}
+        onTouchMove={handleMove}
+        onMouseMove={handleMove}
         onTouchStart={(e) => e.preventDefault()}
       />
       <div className="game-info">
